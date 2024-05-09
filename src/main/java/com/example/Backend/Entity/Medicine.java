@@ -12,7 +12,7 @@ public class Medicine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer medicine_Id;
 
-    private String medicine_Name;
+    private String medicineName;
     private String medicine_description;
     private String medicine_uses;
     private String medicine_side_effects;
@@ -63,11 +63,11 @@ public class Medicine {
     }
 
     public String getMedicine_Name() {
-        return medicine_Name;
+        return medicineName;
     }
 
     public void setMedicine_Name(String medicine_Name) {
-        this.medicine_Name = medicine_Name;
+        this.medicineName = medicine_Name;
     }
 
     public Integer getMedicine_Id() {

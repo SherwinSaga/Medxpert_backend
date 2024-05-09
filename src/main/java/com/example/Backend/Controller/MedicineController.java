@@ -6,6 +6,7 @@ import com.example.Backend.Repositories.MedicineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -38,4 +39,15 @@ public class MedicineController {
 
     //to do
     //return specific medicine
+    @GetMapping("/search")
+    public List<MedicineDTO> searchMedicine(@RequestParam String query) {
+        return medicineRepository.findBymedicineNameContaining(query).stream()
+                .map(medicine -> {
+                    MedicineDTO dto = new MedicineDTO();
+                    dto.setMedicine_name(medicine.getMedicine_Name());
+                    dto.setMedicine_desc(medicine.getMedicine_description());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }

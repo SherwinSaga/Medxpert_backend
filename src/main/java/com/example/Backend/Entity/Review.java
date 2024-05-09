@@ -17,6 +17,8 @@ public class Review {
     @JoinColumn( name = "medicine_id")
     private Medicine medicine_id;
 
+    private String feedback;
+
     public Medicine getMedicine_id() {
         return medicine_id;
     }
@@ -35,6 +37,14 @@ public class Review {
 
     public Integer getReview_ID() {
         return Review_ID;
+    }
+
+    public String getFeedback() {
+        return feedback;
+    }
+
+    public void setFeedback(String feedback) {
+        this.feedback = feedback;
     }
 
 }
