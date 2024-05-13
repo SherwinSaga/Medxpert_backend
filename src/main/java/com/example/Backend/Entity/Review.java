@@ -25,6 +25,18 @@ public class Review {
 
     private Date reviewdate;
 
+    public void setReview_ID(Integer review_ID) {
+        Review_ID = review_ID;
+    }
+
+    public Date getReviewdate() {
+        return reviewdate;
+    }
+
+    public void setReviewdate(Date reviewdate) {
+        this.reviewdate = reviewdate;
+    }
+
     public Integer getRating() {
         return rating;
     }
