@@ -1,11 +1,12 @@
 package com.example.Backend.Controller;
 
+import com.example.Backend.DTO.ReviewDTO;
+import com.example.Backend.Entity.Medicine;
 import com.example.Backend.Entity.Review;
+import com.example.Backend.Repositories.MedicineRepository;
 import com.example.Backend.Repositories.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
 
+    @Autowired
+    private MedicineRepository medicineRepository;
+
     @GetMapping
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
@@ -23,5 +27,14 @@ public class ReviewController {
 
     //to do
     //get review of that specific user
+    @GetMapping("/specificMed/{id}")
+    public List<Review> getMedicineReview(@PathVariable Integer id){
+        Medicine medicine = medicineRepository.findById(id).orElse(null);
+        if (medicine != null) {
+            return reviewRepository.findBymedicineId(medicine);
+        } else {
+            return null; // or handle this case as you see fit
+        }
+    }
 
 }

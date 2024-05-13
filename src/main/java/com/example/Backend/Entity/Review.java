@@ -2,6 +2,8 @@ package com.example.Backend.Entity;
 
 import jakarta.persistence.*;
 
+import java.sql.Date;
+
 @Entity
 public class Review {
 
@@ -15,16 +17,28 @@ public class Review {
 
     @ManyToOne
     @JoinColumn( name = "medicine_id")
-    private Medicine medicine_id;
+    private Medicine medicineId;
 
     private String feedback;
 
+    private Integer rating;
+
+    private Date reviewdate;
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
     public Medicine getMedicine_id() {
-        return medicine_id;
+        return medicineId;
     }
 
     public void setMedicine_id(Medicine medicine_id) {
-        this.medicine_id = medicine_id;
+        this.medicineId = medicine_id;
     }
 
     public Users getUser_id() {
