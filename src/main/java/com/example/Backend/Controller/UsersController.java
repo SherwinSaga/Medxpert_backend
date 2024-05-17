@@ -1,5 +1,6 @@
 package com.example.Backend.Controller;
 
+import com.example.Backend.DTO.UserDTO;
 import com.example.Backend.Entity.Users;
 import com.example.Backend.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,18 +35,27 @@ public class UsersController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> credentials) {
         String username = credentials.get("username");
         String password = credentials.get("password");
 
-        Users existinguser = usersRepository.findByusersname(username);
+        Users existingUser = usersRepository.findByusersname(username);
 
-        if (existinguser != null && existinguser.getUser_Password().equals(password)) {
-            Map<String, String> response = new HashMap<>();
+        if (existingUser != null && existingUser.getUser_Password().equals(password)) {
+            Map<String, Object> response = new HashMap<>();
             response.put("message", "Login Success");
+
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUser_id(existingUser.getUser_ID());
+            userDTO.setUsersname(existingUser.getUsersname());
+            response.put("user", userDTO);
+
             return ResponseEntity.ok(response);
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
         }
     }
+
+
+
 }
