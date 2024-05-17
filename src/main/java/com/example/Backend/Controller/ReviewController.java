@@ -37,4 +37,18 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/countreview")
+    public long countReviews() {
+        return reviewRepository.count();
+    }
+
+    @GetMapping("/negativeMed")
+    public List<Medicine> getMedicineWithMostZeroRatings() {
+        return reviewRepository.findTopMedicineWithZeroRatings();
+    }
+
+    @GetMapping("/positiveMed")
+    public List<Medicine> getMedicineWithMostOneRatings() {
+        return reviewRepository.findTopMedicineWithOneRatings();
+    }
 }

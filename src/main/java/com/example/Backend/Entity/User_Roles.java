@@ -13,7 +13,7 @@ public class User_Roles {
     @JoinColumn( name = "User_ID")
     private Users User_ID;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn( name = "Role_ID")
     private Roles Role_ID;
 

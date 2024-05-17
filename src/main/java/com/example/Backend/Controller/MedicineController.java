@@ -1,4 +1,7 @@
 package com.example.Backend.Controller;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import com.example.Backend.DTO.MedicineDTO;
 import com.example.Backend.Entity.Medicine;
@@ -39,8 +42,6 @@ public class MedicineController {
     }
 
 
-    //to do
-    //return specific medicine
     @GetMapping("/search")
     public List<MedicineDTO> searchMedicine(@RequestParam String query) {
         return medicineRepository.findBymedicineNameContaining(query).stream()
@@ -63,4 +64,19 @@ public class MedicineController {
         return medicineRepository.findById(medicine_id).orElseThrow(() -> new Exception("Medicine Not Found"));
     }
 
+
+    @GetMapping("/last_four_medicines")
+    public List<Medicine> getLastFourMedicines() {
+        return medicineRepository.findLastFourMedicines();
+    }
+
+    @PostMapping("/add_medicine")
+    public Medicine addMedicine(@RequestBody Medicine newMedicine) {
+        return medicineRepository.save(newMedicine);
+    }
+
+    @GetMapping("/countMeds")
+    public long countMedicine(){
+        return medicineRepository.count();
+    }
 }
