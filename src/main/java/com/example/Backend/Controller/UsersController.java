@@ -1,7 +1,9 @@
 package com.example.Backend.Controller;
 
 import com.example.Backend.DTO.UserDTO;
+import com.example.Backend.Entity.User_Roles;
 import com.example.Backend.Entity.Users;
+import com.example.Backend.Repositories.User_RolesRepository;
 import com.example.Backend.Repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,10 @@ public class UsersController {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    @Autowired
+    private User_RolesRepository userRolesRepository;
+
 
     @GetMapping("/{user_id}")
     public Users getUser(@PathVariable Integer user_id) throws Exception {
@@ -42,12 +48,16 @@ public class UsersController {
         Users existingUser = usersRepository.findByusersname(username);
 
         if (existingUser != null && existingUser.getUser_Password().equals(password)) {
+
+            User_Roles userRole = userRolesRepository.findByUserId(existingUser.getUser_ID());
+
             Map<String, Object> response = new HashMap<>();
             response.put("message", "Login Success");
 
             UserDTO userDTO = new UserDTO();
             userDTO.setUser_id(existingUser.getUser_ID());
             userDTO.setUsersname(existingUser.getUsersname());
+            userDTO.setUser_role(userRole.getRole_ID());
             response.put("user", userDTO);
 
             return ResponseEntity.ok(response);
