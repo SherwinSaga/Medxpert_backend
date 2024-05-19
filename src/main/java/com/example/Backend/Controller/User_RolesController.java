@@ -16,6 +16,8 @@ public class User_RolesController {
     @Autowired
     private User_RolesRepository userRolesRepository;
 
+    //get the role of a user
+    //wala na gamit
     @GetMapping("/{user_id}")
     public Roles getRoleOfUser(@PathVariable Integer user_id) throws Exception {
         User_Roles userRole = userRolesRepository.findById(user_id).orElseThrow(() -> new Exception("User_Roles error : line 21 @User_RolesController"));

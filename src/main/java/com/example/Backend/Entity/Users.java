@@ -1,5 +1,5 @@
 package com.example.Backend.Entity;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +13,10 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer User_ID;
 
+    @JsonProperty("usersname")
     private String usersname;
 
+    @JsonProperty("password")
     private String User_Password;
 
     public Integer getUser_ID() {
